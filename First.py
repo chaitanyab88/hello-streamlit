@@ -1,40 +1,39 @@
-# Modified from Johannes Rieke's example code
-
 import streamlit as st
 from snowflake.snowpark import Session
 
-st.title('❄️ How to connect Streamlit to a Snowflake database')
+st.title('❄️ Connect Streamlit to a Snowflake database & Visualizing Predictions')
 
 # Establish Snowflake session
+conn = st.connection("snowflake")
 @st.cache_resource
-def create_session():
-    return Session.builder.configs(st.secrets.snowflake).create()
+##def create_session():
+   ## return Session.builder.configs(st.secrets.snowflake).create()
 
-session = create_session()
-st.success("Connected to Snowflake!")
+
+
+
 
 # Load data table
 @st.cache_data
+
 def load_data(table_name):
-    ## Read in data table
-    st.write(f"Here's some example data from `{table_name}`:")
-    table = session.table(table_name)
-    
+   session = conn.session()
+   st.write("Here's some example data from `{table_name}`:")
+   return session.table(table_name).to_pandas()
+ 
     ## Do some computation on it
-    table = table.limit(100)
-    
+    #table = table.limit(20)
+       
     ## Collect the results. This will run the query and download the data
-    table = table.collect()
-    return table
+    #table = table.collect()
+    #return table
+
 
 # Select and display data table
-table_name = "SNOWFLAKE_SAMPLE_DATA.TPCH_SF1.customer"
-
+table_name = "SNOWFLAKE_SAMPLE_DATA.TPCH_SF1.CUSTOMER"
+df = load_data(table_name)
+st.dataframe(df)
+st.write(df)
 ## Display data table
-with st.expander("See Table"):
-    df = load_data(table_name)
-    st.dataframe(df)
-
-## Writing out data
-for row in df:
-    st.write(f"{row[0]} has a :{row[1]}:")
+##with st.expander("See Table"):
+  

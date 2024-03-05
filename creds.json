@@ -1,0 +1,8 @@
+{
+    "account": "gdccowj-kc86679",
+    "user": "chaitanyab",
+    "role": "ACCOUNTADMIN",
+    "password": "Chaitanya@1988",
+    "database": "SNOWFLAKE_SAMPLE_DATA",
+    "schema": "TPCH_SF1"
+  }
