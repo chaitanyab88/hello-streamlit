@@ -10,4 +10,4 @@ session = Session.builder.configs(connection_parameters).create()
 
 file = st.file_uploader("Drop your CSV here to load to Snowflake", type={"csv"})
 file_df = pd.read_csv(file)
-snowparkDf=session.write_pandas(file_df,file.name,auto_create_table = True, overwrite=True)
+#snowparkDf=session.write_pandas(file_df,file.name,auto_create_table = True, overwrite=True)
